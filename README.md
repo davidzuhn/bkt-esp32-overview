@@ -30,6 +30,9 @@ The lithium-polymer (LiPo) battery in the throttle can be charged via the Micro-
 
 This plan, however, ran into a small hitch.  After the phone sits in your pocket for a bit, the power-saving mechanisms within the phone closes the network connections and all control is lost.   This makes the throttle useless after about 5 minutes.   
 
+![BKT-0 PCB](pics/BKT0-PCB.jpg)
+![BKT-0 Case](pics/BKT0-CASE.jpg)
+
 
 ## ESP32 - A New Hope
 
