@@ -18,9 +18,9 @@ I like the idea behind the phone-based throttle apps.  Using WiFi for communicat
 
 Plus, I like a tactile feedback.  The direction switch should indicate the actual direction of travel.  I like a knob for speed.   There's little on the phone apps which provide that feedback.   To me, the UT-4 is an excellent design for physical interaction -- it's easy to hold in one hand and flip the direction switch and change the speed knob.   Wouldn't it be nice to combine the two concepts?
  
-## The BKT-1
+## The BKT-0
 
-The first design used an [nRF52] chip from Nordic Semiconductor.  This chip used Bluetooth Low Energy (aka BLE) for communications and an ARM Cortex M4 processor for the code.  This throttle uses a [Serpac] [M6 case] (also used by the UT-4).  An illuminated button is close to the speed knob and is intended to serve as the brake control.   Four other buttons are provided below that.  Each button lights up when the associated function is active.   
+The first design used an [nRF52] chip from Nordic Semiconductor.  This chip used Bluetooth Low Energy (aka BLE) for communications and an ARM Cortex M4 processor for the code.  This throttle uses a [Serpac][Serpac] [M6][M6] case (also used by the UT-4).  An illuminated button is close to the speed knob and is intended to serve as the brake control.   Four other buttons are provided below that.  Each button lights up when the associated function is active.   
 
 Along with the throttle is an [iOS] app.  The throttle communicates with the app using BLE.  The app communicates upstream to JMRI using Wifi.   This lets me use the phone for things it's good at (like entering in WiFi network names & passwords) and the throttle for the things it's good at (tactile control).
 
@@ -39,13 +39,26 @@ ESP32 boards are readily available for development & testing.  I've mostly been 
 
 # BKT-ESP32
 
-The next generation throttle design is in progress.  It's been built and tested on a breadboard.  
+The next generation throttle design is in progress.  It's been built and tested on a breadboard, and the PCB design for an actual-size prototype is in progress.  
+
+The current design supports 8 "normal" function buttons and 1 lighted button, the latter intended to be the brake.  These buttons are not hardcoded on the throttle -- you can map any button to any function within the app.  If you want function 22 available as button 7, that's no trouble at all.  This means the functions you want are where you want them. You will be able to change any of the functions from the phone app as well, so all 28 DCC functions are available to the operator.     
+
+There is a center-off toggle switch for direction and a 270&deg; speed knob (potentiometer and not encoding knob).  The app lets you control which directions the toggle switch indicates.   Do you want forward being toggle to the left or to the right?   You choose.
+
+The design also includes a small vibrating motor for haptic feedback.   This is experimental right now, but I've found a few bits of feedback to be useful so far.  When the throttle goes to zero, there's a small "blip" on the motor.  If you change the speed while the brake is on, a shake of the motor helps cue you in that the action isn't useful.
+
+There is also a small accelerometer on the device.  This is useful for saving power.  If the throttle hasn't moved in a while, it can go to a lower power mode (or shut down altogether).  Moving the throttle can wake the device back up again.   Free-fall can also be detected (e.g., you drop the throttle) and your train can be brought to a stop until you can regain control of the throttle.  
+
+Using the same 2000maH battery the ESP32 based throttle will operate for about 30-35 hours (without any power saving measures yet).  
 
 
 ### Todos
-
+ - Stability of the throttle Arduino code
+ - More complete WiThrottle protocol handling
+ - Finish the iOS app
+ - Android app
+ - PCB layout & bringup
  - Write MORE Tests
- - Add Night Mode
 
 License
 ----
@@ -53,7 +66,7 @@ License
 Creative Commons [CC-BY-SA 4.0][CCBYSA]   ![CCBYSA](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
 Open Source Hardware License
 
-**Free Software, Hell Yeah!**
+**Free Software, Oh Yeah!**
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
@@ -71,6 +84,5 @@ Open Source Hardware License
    [ESP32]: <https://www.espressif.com/en/products/hardware/esp32/overview>
    [Adafruit]: <https://www.adafruit.com/>
    [Huzzah32]: <https://www.adafruit.com/product/3405>
-   
    [CCBYSA]: <http://creativecommons.org/licenses/by-sa/4.0/>
    
