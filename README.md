@@ -38,11 +38,15 @@ This plan, however, ran into a small hitch.  After the phone sits in your pocket
 
 Since the phone cannot serve as an intermediate gateway, the next best choice is to use the phone to set up the throttle, and let the throttle manage the WiFi connection.  That can't work on the nRF52, since it doesn't do WiFi.  I looked at the ESP8266 chip, which does WiFi, but it doesn't have BLE.  Then along comes the ESP32 processor.  It contains radio support for both WiFi and Bluetooth Low Energy.  It's inexpensive.  It's reasonably well documented (unlike earlier ESP processors).  It's supported by the Arduino community.  
 
-ESP32 boards are readily available for development & testing.  I've mostly been using the [Adafruit] [Huzzah32][Huzzah-32] board, which works very well on a breadboard.   
+ESP32 boards are readily available for development & testing.  I've mostly been using the [Adafruit] [Huzzah-32][Huzzah32] board, which works very well on a breadboard.   There's also a variety of existing modules that support the ESP32, with an onboard antenna and (most importantly) FCC certification.
+
+![ESP32 module](pics/esp32-module.jpg)
 
 # BKT-ESP32
 
 The next generation throttle design is in progress.  It's been built and tested on a breadboard, and the PCB design for an actual-size prototype is in progress.  
+
+![mini clipboard prototype](pics/clipboard1.jpg)
 
 The current design supports 8 "normal" function buttons and 1 lighted button, the latter intended to be the brake.  These buttons are not hardcoded on the throttle -- you can map any button to any function within the app.  If you want function 22 available as button 7, that's no trouble at all.  This means the functions you want are where you want them. You will be able to change any of the functions from the phone app as well, so all 28 DCC functions are available to the operator.     
 
@@ -50,9 +54,25 @@ There is a center-off toggle switch for direction and a 270&deg; speed knob (pot
 
 The design also includes a small vibrating motor for haptic feedback.   This is experimental right now, but I've found a few bits of feedback to be useful so far.  When the throttle goes to zero, there's a small "blip" on the motor.  If you change the speed while the brake is on, a shake of the motor helps cue you in that the action isn't useful.
 
-There is also a small accelerometer on the device.  This is useful for saving power.  If the throttle hasn't moved in a while, it can go to a lower power mode (or shut down altogether).  Moving the throttle can wake the device back up again.   Free-fall can also be detected (e.g., you drop the throttle) and your train can be brought to a stop until you can regain control of the throttle.  
+There is also a small accelerometer on the device.  This is useful for saving power.  If the throttle hasn't moved in a while, it can go to a lower power mode (or shut down altogether).  Moving the throttle can wake the device back up again.  Free-fall can also be detected (e.g., you drop the throttle) and your train can automatically be brought to a stop until you can regain control of the throttle.  
 
 Using the same 2000maH battery the ESP32 based throttle will operate for about 30-35 hours (without any power saving measures yet).  
+
+I've put a 4 digit display on the board mostly for debugging purposes.  I'm displaying the fast time with this right now, but it could display the selected locomotive address, or the speed, or ???    I'm not inclined to place this in the throttle case.  I can't fit this particular display module in the case, and I'm not interested enough to find another display module that's suitable.  
+
+Schematics for the current design are [available](throttle-hardware/bkt-esp32.pdf).
+
+# The App
+
+An iPhone/iPad app is in progress, and this is used to configure the throttle.  There are a couple of ways that I see this being used.
+
+First, an operator who owns the throttle installs the app on their phone, and when they visit a layout that's set up for the WiFi protocol (e.g., by running JMRI), they use their own throttle and their own phone.  
+
+Alternately, the layout owner can set up an iPad (or iPhone, but the tablet would be easier to use) in a central location.  When an operator needs to select a locomotive, they go to the iPad, choose the throttle and then select the locomotive.  No further interaction with the iPad is needed until another locomotive needs to be selected.  Since this is a common style of operations on CTC-80 layouts, I don't see why it wouldn't work on DCC layouts).
+
+These two scenarios could be in use at the same time.  
+
+The app is also used to update the software on the throttle.   
 
 
 ### Todos
@@ -61,13 +81,14 @@ Using the same 2000maH battery the ESP32 based throttle will operate for about 3
  - Finish the iOS app
  - Android app
  - PCB layout & bringup
- - Write MORE Tests
+ - Make the case design pretty
+ - More testing
 
 License
 ----
 
 Creative Commons [CC-BY-SA 4.0][CCBYSA]   ![CCBYSA](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
-Open Source Hardware License
+[Open Source Hardware License](https://www.oshwa.org/definition/) ![OSHWA](https://i2.wp.com/www.oshwa.org/wp-content/uploads/2014/03/oshw-logo-100-px.png)
 
 **Free Software, Oh Yeah!**
 
