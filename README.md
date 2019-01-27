@@ -68,7 +68,7 @@ An iPhone/iPad app is in progress, and this is used to configure the throttle.  
 
 First, an operator who owns the throttle installs the app on their phone, and when they visit a layout that's set up for the WiFi protocol (e.g., by running JMRI), they use their own throttle and their own phone.  
 
-Alternately, the layout owner can set up an iPad (or iPhone, but the tablet would be easier to use) in a central location.  When an operator needs to select a locomotive, they go to the iPad, choose the throttle and then select the locomotive.  No further interaction with the iPad is needed until another locomotive needs to be selected.  Since this is a common style of operations on CTC-80 layouts, I don't see why it wouldn't work on DCC layouts).
+Alternately, the layout owner can set up an iPad (or iPhone, but the tablet would be easier to use) in a central location.  When an operator needs to select a locomotive, they go to the iPad, choose the throttle and then select the locomotive.  No further interaction with the iPad is needed until another locomotive needs to be selected.  Since this is a common style of operations on CTC-80 layouts using a PC for selection, I don't see why it wouldn't work on DCC layouts with a suitable device.
 
 These two scenarios could be in use at the same time.  
 
